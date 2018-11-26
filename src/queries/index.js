@@ -33,9 +33,32 @@ const queries = {
         return topicGroup.save().then(() => topic);
       });
     });
+  },
+  addPost: function(topicID, title, content) {
+    const post = new Post({
+      title,
+      content,
+      topic: topicID
+    });
+    return post.save().then(() => {
+      return Topic.findById(topicID).then(topic => {
+        topic.posts.push(post);
+        return topic.save().then(() => post);
+      });
+    });
+  },
+  fetchPosts: function() {
+    return Post.find({})
+      .populate("replies")
+      .populate("topic");
+  },
+  fetchPostsWithTopicID: function(topicID) {
+    return Topic.findById(topicID)
+      .populate("posts")
+      .then(topic => {
+        return topic.posts;
+      });
   }
 };
-
-// TODO: Add new topic to a topic group.
 
 module.exports = queries;

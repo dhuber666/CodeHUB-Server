@@ -1,9 +1,8 @@
 const express = require("express");
 const app = express();
-const addTopicGroup = require("./src/routes/addTopicGroup");
-const addTopic = require("./src/routes/addTopic");
-const fetchTopicGroup = require("./src/routes/fetchTopicGroups");
-const fetchTopics = require("./src/routes/fetchTopics");
+const topicRoutes = require("./src/routes/topic");
+const topicGroupRoutes = require("./src/routes/topicGroup");
+const postRoutes = require("./src/routes/post");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -31,10 +30,9 @@ app.use(function(req, res, next) {
   return next();
 });
 
-addTopicGroup(app);
-fetchTopicGroup(app);
-fetchTopics(app);
-addTopic(app);
+topicRoutes(app);
+topicGroupRoutes(app);
+postRoutes(app);
 
 // TODO: Add authentication
 

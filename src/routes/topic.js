@@ -10,4 +10,8 @@ module.exports = function(app) {
       .then(createdTopic => res.send(createdTopic))
       .catch(error => console.log(error));
   });
+
+  app.get("/fetchTopics", (req, res) => {
+    queries.fetchTopics().then(topics => res.send(topics));
+  });
 };
